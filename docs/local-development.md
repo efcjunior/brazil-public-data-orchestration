@@ -2,6 +2,11 @@
 
 This repository starts the Brazil public data ecosystem as separate services.
 
+There are two supported run modes:
+
+- default mode: runs published Docker images from GitHub Container Registry;
+- local-build mode: builds `auth-api` and `bdi-api` from sibling folders.
+
 ## Why separate MongoDB services?
 
 `auth-api` and `bdi-api` own different data:
@@ -42,9 +47,33 @@ The Compose file passes both `MONGODB_URI` and `SPRING_MONGODB_URI` to the APIs.
 
 ## Start
 
+### Using published images
+
 ```bash
 cp .env.example .env
-docker compose up --build -d
+docker compose up -d
+```
+
+By default, the stack uses:
+
+```text
+ghcr.io/efcjunior/auth-api:1.0.0
+ghcr.io/efcjunior/bdi-api:1.0.1
+```
+
+You can override these in `.env`:
+
+```env
+AUTH_API_IMAGE=ghcr.io/efcjunior/auth-api:1.0.0
+BDI_API_IMAGE=ghcr.io/efcjunior/bdi-api:1.0.1
+```
+
+### Building local source code
+
+Use this mode when you are changing `../auth-api` or `../bdi-api` and want Compose to rebuild the images from your local workspace:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.local-build.yml up --build -d
 ```
 
 ## Inspect logs

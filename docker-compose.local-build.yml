@@ -1,0 +1,10 @@
+services:
+  auth-api:
+    image: brazil-public-data/auth-api:local
+    build:
+      context: ../auth-api
+
+  bdi-api:
+    image: brazil-public-data/bdi-api:local
+    build:
+      context: ../bdi-api

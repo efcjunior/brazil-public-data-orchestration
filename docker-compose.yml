@@ -28,8 +28,7 @@ services:
       retries: 10
 
   auth-api:
-    build:
-      context: ../auth-api
+    image: ${AUTH_API_IMAGE:-ghcr.io/efcjunior/auth-api:1.0.0}
     depends_on:
       auth-mongo:
         condition: service_healthy
@@ -55,8 +54,7 @@ services:
       retries: 20
 
   bdi-api:
-    build:
-      context: ../bdi-api
+    image: ${BDI_API_IMAGE:-ghcr.io/efcjunior/bdi-api:1.0.1}
     depends_on:
       bdi-mongo:
         condition: service_healthy

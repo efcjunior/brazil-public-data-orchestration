@@ -17,8 +17,17 @@ The smoke test calls `GET /api/v1/bdi/history` instead of `GET /api/v1/bdi/curre
 
 ## Run
 
+Using published images:
+
 ```bash
-docker compose up --build -d
+docker compose up -d
+./scripts/smoke-auth-bdi.sh
+```
+
+Using local source builds:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.local-build.yml up --build -d
 ./scripts/smoke-auth-bdi.sh
 ```
 

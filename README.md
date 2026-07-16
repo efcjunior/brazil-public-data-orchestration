@@ -17,7 +17,9 @@ The first smoke flow validates login, user creation, JWT audience/issuer configu
 
 ## Expected workspace layout
 
-This repository expects sibling project folders:
+The default stack uses published Docker images from GitHub Container Registry.
+
+For local source builds, this repository expects sibling project folders:
 
 ```text
 applications/
@@ -26,13 +28,13 @@ applications/
   brazil-public-data-orchestration/
 ```
 
-Docker Compose builds the APIs from `../auth-api` and `../bdi-api`.
-
 ## Quick start
+
+Use the published images:
 
 ```bash
 cp .env.example .env
-docker compose up --build -d
+docker compose up -d
 ./scripts/smoke-auth-bdi.sh
 ```
 
@@ -44,6 +46,20 @@ Services are exposed locally as:
 | bdi-api | `http://localhost:8081` |
 | auth MongoDB | `localhost:27018` |
 | bdi MongoDB | `localhost:27019` |
+
+## Local source build
+
+When changing `auth-api` or `bdi-api` locally, run with the local-build override:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.local-build.yml up --build -d
+./scripts/smoke-auth-bdi.sh
+```
+
+The override builds:
+
+- `../auth-api`
+- `../bdi-api`
 
 ## Stop local stack
 
